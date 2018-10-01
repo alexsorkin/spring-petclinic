@@ -1,0 +1,35 @@
+<settings>
+  <servers>
+    <server>
+      <id>central</id>
+      <configuration>
+        <httpConfiguration>
+          <all>
+            <connectionTimeout>120000</connectionTimeout>
+            <readTimeout>120000</readTimeout>
+          </all>
+        </httpConfiguration>
+      </configuration>
+    </server>
+    <server>
+      <id>apache.servicemix.m2</id>
+      <configuration>
+        <httpConfiguration>
+          <all>
+            <connectionTimeout>120000</connectionTimeout>
+            <readTimeout>120000</readTimeout>
+          </all>
+        </httpConfiguration>
+      </configuration>
+    </server>
+  </servers>
+  <mirrors>
+    <mirror>
+      <id>internal-repo</id>
+      <name>Mirror Repo</name>
+      <url>{{ MIRROR_REPO_URL }}</url>
+      <mirrorOf>*,!maven.oracle.com</mirrorOf>
+    </mirror>
+  </mirrors>
+</settings>
+
