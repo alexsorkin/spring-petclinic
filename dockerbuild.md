@@ -9,8 +9,9 @@
 ```
 
 Docker compose starts:
-mysql
-petclinic
-nginx reverse proxy
+	mysql
+		petclinic1
+		petclinic1
+			nginx reverse proxy
 
 Exposed Nginx Port: 8080

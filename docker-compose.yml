@@ -10,9 +10,19 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
-  petclinic:
+  petclinic1:
     image: "spring/petclinic:18.09"
-    hostname: petclinic
+    hostname: petclinic1
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sSL", "localhost:8080"]
+      timeout: 20s
+      retries: 10
+  petclinic2:
+    image: "spring/petclinic:18.09"
+    hostname: petclinic2
     depends_on:
       mysql:
         condition: service_healthy
@@ -27,7 +37,6 @@ services:
       - "8080:8080"
     expose:
       - "8080"
-    depends_on:
-      petclinic:
-        condition: service_healthy
-
+    links:
+      - "petclinic1"
+      - "petclinic2"
