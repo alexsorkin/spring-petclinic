@@ -3,8 +3,6 @@ services:
   mysql:
     image: "mysql:5.7.23"
     hostname: mysql
-    ports:
-      - "3606:3606"
     environment:
       - MYSQL_ROOT_PASSWORD=petclinic
       - MYSQL_DATABASE=petclinic
@@ -15,11 +13,21 @@ services:
   petclinic:
     image: "spring/petclinic:18.09"
     hostname: petclinic
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sSL", "localhost:8080"]
+      timeout: 20s
+      retries: 10
+  nginx:
+    image: "spring/petclinic:18.09-nginx"
+    hostname: nginx
     ports:
       - "8080:8080"
     expose:
       - "8080"
     depends_on:
-      mysql:
+      petclinic:
         condition: service_healthy
 

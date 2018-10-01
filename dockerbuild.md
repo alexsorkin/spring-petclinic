@@ -7,3 +7,10 @@
 	make docker MIRROR=archiva
 	docker-compose up
 ```
+
+Docker compose starts:
+mysql
+petclinic
+nginx reverse proxy
+
+Exposed Nginx Port: 8080

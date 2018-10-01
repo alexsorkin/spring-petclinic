@@ -26,6 +26,7 @@ JDK_IMAGE_TAG := java:jdk-8-alpine-glibc
 ARCHIVA_TAG := archiva:jre-8-alpine-glibc
 IMAGE_TAG := $(PROJECT_VERSION)
 BUILDER_TAG := $(PROJECT_VERSION)-builder
+NGINX_TAG := $(PROJECT_VERSION)-nginx
 
 ifeq ($(MIRROR), archiva)
   ifneq ($(strip $(DOCKER_HOST)),)
@@ -66,11 +67,15 @@ archiva: prepare
 		docker run -d -p 18080:8080 --name archiva $(ARCHIVA_TAG); \
 	fi
 
-build: clean
+nginx:
+	$(info Building Nginx Container Image..)
+	docker build --target nginx -t $(IMAGE_REPO):$(NGINX_TAG) ./supplements/
+
+build: clean nginx
 	$(info Building Package..)
 	docker build --target builder $(MIRROR_ARG) $(MYSQL_URL_ARG) -t $(IMAGE_REPO):$(BUILDER_TAG) .
 
-docker:
+docker: nginx
 	@if [ "x$(TARGET_ENV)" != "x" ]; then \
 		docker build $(MIRROR_ARG) $(MYSQL_URL_ARG) -t $(IMAGE_REPO):$(IMAGE_TAG) .; \
 	fi

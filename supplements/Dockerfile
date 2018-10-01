@@ -77,3 +77,8 @@ EXPOSE 8080
 ENTRYPOINT ["/bin/tini", "--"]
 CMD ["/usr/share/archiva/bin/archiva", "console"]
 
+FROM nginx:alpine as nginx
+
+LABEL AUTHOR="Alex Sorkin alexander.sorkin@gmail.com"
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
