@@ -8,7 +8,9 @@ ARG MYSQL_URL
 
 # Build dummy karaf profile
 WORKDIR /build
-COPY . ./
+COPY ./src ./src
+COPY ./pom.xml ./
+COPY ./settings.xml ./
 
 RUN mkdir -p ${MAVEN_CONFIG} && \
     echo MIRROR_REPO_URL=${MIRROR_REPO_URL} && \
