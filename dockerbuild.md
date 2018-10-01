@@ -9,9 +9,11 @@
 ```
 
 Docker compose starts:
+```
 	mysql
 		petclinic1
-		petclinic1
+		petclinic2
 			nginx reverse proxy
+```
 
 Exposed Nginx Port: 8080
